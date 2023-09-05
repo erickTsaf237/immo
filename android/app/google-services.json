@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "692119567575",
+    "project_id": "immo-b080d",
+    "storage_bucket": "immo-b080d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692119567575:android:b3ffe9a38e66b0cd72c492",
+        "android_client_info": {
+          "package_name": "com.example.immo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692119567575-oo7ddedo29mhbjkkmur7jl6ckv1mg714.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi5fbLEptGMiMa-bTRPq_p1XCSBZN_THg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692119567575-oo7ddedo29mhbjkkmur7jl6ckv1mg714.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
