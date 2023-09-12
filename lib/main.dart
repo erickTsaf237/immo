@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:immo/appartement/Appartement_model.dart';
 import 'package:immo/batiment/batiment_list_page.dart';
 import 'package:immo/batiment/batiment_model.dart';
-import 'package:immo/batiment/batiment_page.dart';
 import 'package:immo/batiment/create_batiment.dart';
+import 'package:immo/contrat/contrat_model.dart';
+import 'package:immo/locataire/locataire_model.dart';
+import 'package:immo/location/location_model.dart';
 import 'package:immo/tools/about/about_us.dart';
 import 'package:immo/tools/mon_drawable.dart';
 import 'package:immo/utilisateur/utilisateur_model.dart';
@@ -14,9 +16,13 @@ import 'package:sqflite/sqflite.dart';
 
 import 'accueille/connexion.dart';
 import 'firebase_options.dart';
+import 'locataire/locataire_item.dart';
 
 late UtilisateurModel? utilisateur_courant;
 late Future<Database> database;
+late Database etatDatabase;
+late Function homeFunction;
+
 
 Future<int> createDatabase() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,18 +33,27 @@ Future<int> createDatabase() async {
        db.execute(UtilisateurModel.creationLocalUtilisateur);
        db.execute(BatimentModel.creationLocalBatiment);
        db.execute(AppartementModel.creationLocalAppartement);
+       db.execute(LocataireModel.creationLocalLocataire);
+       db.execute(ContratModel.creationLocalContrat);
+       db.execute(LocationModel.creationLocalLocation);
+
     },
     version: 2,
     onUpgrade: (db, version, autre) {
        db.execute(UtilisateurModel.creationLocalUtilisateur);
        db.execute(BatimentModel.creationLocalBatiment);
-
+       db.execute(AppartementModel.creationLocalAppartement);
+       db.execute(LocataireModel.creationLocalLocataire);
+       db.execute(ContratModel.creationLocalContrat);
+       db.execute(LocationModel.creationLocalLocation);
     },
   );
   UtilisateurModel? a = await UtilisateurModel.ConnectCurrentUtilisateur();
-  AppartementModel.getAll()?.then((value) {
-    print(value);
+  AppartementModel.getAllCurrentLoctaire().then((value) {
+    print(value.toString()+'jjjjjj');
   });
+  etatDatabase = await database;
+  AppartementModel.getAllCurrentLoctaire2(await database);
   utilisateur_courant = a;
   print(a);
   print(await getDatabasesPath());
@@ -74,7 +89,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(),
         '/about': (context) => AboutUsPage(),
-        '/batiment': (context) => BatimentListPage(),
+        '/batiment': (context) => BatimentListPage(homeFunction),
         // '/logup': (context) => const Logup(),
         '/home': (context) => const MyHomePage(title: 'Immo'),
         // '/section': (context) => MyHomePage.who=='admin'?SectionPage():SectionePage(),
@@ -99,6 +114,13 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   @override
+  void initState() {
+    homeFunction = (){
+      setState(() {});
+    };
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -107,7 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: const MonDrawer(),
       body: Container(
-        padding: EdgeInsets.all(25),
+        padding: EdgeInsets.all(0),
+        child: getCurentLocataireListItems(context, (){setState(() {});})
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

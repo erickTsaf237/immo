@@ -17,7 +17,7 @@ abstract class Immo{
   String getTableName();
 
   Future<int> save() async {
-    final db = await database;
+    final db = etatDatabase;
     return await db.insert(
       getTableName(),
       toJson(),
@@ -25,19 +25,21 @@ abstract class Immo{
     );
   }
 
+
+
   Future<int> update() async {
-    final db = await database;
+    final db = etatDatabase;
     return await db.update(
         getTableName(),
         toJson(),
         where: 'id=?',
         whereArgs: [id],
-        conflictAlgorithm: ConflictAlgorithm.ignore
+        conflictAlgorithm: ConflictAlgorithm.replace
     );
   }
 
   Future<void> orther() async {
-    final db = await database;
+    final db = etatDatabase;
     await db.update(
         getTableName(),
         toJson(),
@@ -61,7 +63,7 @@ abstract class Immo{
   Immo(this.id);
 
   static Future<List<Map<String, Object?>>>? getAll(String table) async {
-    final db = await database;
+    final db = etatDatabase;
     List<Map<String, Object?>> res = await db.query(
         table,
     );
@@ -69,7 +71,7 @@ abstract class Immo{
   }
 
   static Future<List<Map<String, Object?>>>? getAllByFK(String table, Map<String, String> keyValue) async {
-    final db = await database;
+    final db = etatDatabase;
     List<Map<String, Object?>> res = await db.query(
       table,
       whereArgs: [keyValue['value']],
@@ -79,7 +81,7 @@ abstract class Immo{
   }
 
   static Future<List<Map<String, Object?>>>? getOneById(String table, String id) async {
-    final db = await database;
+    final db = etatDatabase;
     List<Map<String, Object?>> res = await db.query(
       table,
       where: 'id=?',
@@ -88,7 +90,7 @@ abstract class Immo{
     return res;
   }
   Future<int> delete() async {
-    final db = await database;
+    final db = etatDatabase;
     return await db.delete(
         getTableName(),
         where: 'id=?',

@@ -82,7 +82,9 @@ getAppartementListItem(BuildContext context,Function function, BatimentModel  ba
         } else if (response.hasData) {
           if(response.data != null){
             var candidatList = [];
+            print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
             print(response.data);
+            print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
             // String? a = response.data?.data!;
             // String b = a!;
             dynamic r = response.data;
@@ -152,7 +154,7 @@ getAppartementListItem(BuildContext context,Function function, BatimentModel  ba
               );
             }
             int taille = r.length;
-            return Column(children: [
+            return ListView(children: [
               for (int i = 0; i < taille; i++)
                 // ListTile(title: Text('oooooooooooooooooo'),)
                 AppartementListItem(AppartementModel.fromJson(r[i]), batiment, function),

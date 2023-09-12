@@ -64,7 +64,7 @@ class _MyBatimentPage extends State<MyBatimentPage> {
                 builder: (context) {
                   return AlertDialog(
                       content: MyCreateAppartementPage(
-                          AppartementModel(batiment.id, '', '', '', ''), () {
+                          AppartementModel(batiment.id, '', '', 'libre', ''), () {
                     setState(() {});
                     function();
                   }));

@@ -19,7 +19,7 @@ class CreateAppartementPage extends StatelessWidget {
 }
 
 class MyCreateAppartementPage extends StatefulWidget {
-  late AppartementModel appartement = AppartementModel('', '', '', '', '');
+  late AppartementModel appartement = AppartementModel('', '', '', 'libre', '');
   late dynamic function;
 
   MyCreateAppartementPage(this.appartement, this.function, {super.key});
@@ -37,7 +37,7 @@ class _MyCreateAppartementPage extends State<MyCreateAppartementPage> {
   var villeController = TextEditingController();
   var numeroController = TextEditingController();
   var descriptionController = TextEditingController();
-  late AppartementModel appartement = AppartementModel('', '', '', '', '');
+  late AppartementModel appartement = AppartementModel('', '', '', 'libre', '');
 
 
   late dynamic function;
